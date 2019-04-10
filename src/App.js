@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import "./App.scss";
 import DateBox from "./Components/DateBox";
+import { withTranslation } from 'react-i18next';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      days: "",
-      hours: "",
-      minutes: "",
-      seconds: "",
+      currentTime: 0,
+      years: 0,
+      months: 0,
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
     };
   }
 
@@ -19,11 +23,16 @@ class App extends Component {
       let now = new Date().getTime();
       let t = deadline - now;
       if (t >= 0) {
+        let datayears = Math.floor(t / (1000 * 60 * 60 * 24 * 30 * 12));
+        let datamonths = Math.floor(t / (1000 * 60 * 60 * 24 * 30));
         let datadays = Math.floor(t / (1000 * 60 * 60 * 24));
         let datahours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         let datamins = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
         let datasecs = Math.floor((t % (1000 * 60)) / 1000); 
         this.setState({
+          currentTime: now,
+          years: datayears,
+          months: datamonths,
           days: datadays,
           hours: datahours,
           minutes: datamins,
@@ -41,21 +50,22 @@ class App extends Component {
   };
 
   render() {
-    const { days, hours, minutes, seconds } = this.state;
+    const { days, hours, minutes, seconds, } = this.state;
+    const { t } = this.props;
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Countdown</h1>
+      <div className="app">
+        <header className="header--container">
+          <h1>{ t('Countdown') }</h1>
         </header>
-        <main>
-          <DateBox days={days} textdays="Days"/>
-          <DateBox hours={hours} texthours="Hours"/>
-          <DateBox minutes={minutes} textminutes="Minutes"/>
-          <DateBox seconds={seconds} textseconds="Seconds"/>
+        <main className="main--container">
+          <DateBox days={days} textdays={t("Days")}/>
+          <DateBox hours={hours} texthours={t("Hours")}/>
+          <DateBox minutes={minutes} textminutes={t("Minutes")}/>
+          <DateBox seconds={seconds} textseconds={t("Seconds")}/>
         </main>
       </div>
     );
   }
 }
 
-export default App;
+export default withTranslation('common')(App);
