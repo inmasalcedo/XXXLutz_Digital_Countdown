@@ -3,19 +3,33 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 90px;
-    margin: 0 15px;
+    width: 60px;
+    height: 70px;
+    margin: 0 5px;
     font-family: 'Times New Roman', Times, serif;
     background-color: #5ac7b5;
     color: #ffffff;
 }
 
 .dateBox--number {
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .dateBox--text {
     text-transform: uppercase;
-    font-size: 15px;
+    font-size: 10px;
+}
+
+@media all and (min-width: 768px) {
+    .dateBox--container {
+        width: 80px;
+        height: 90px;
+        margin: 0 15px;
+    }
+    .dateBox--number {
+        font-size: 30px;
+    }
+    .dateBox--text {
+        font-size: 15px;
+    }
 }
